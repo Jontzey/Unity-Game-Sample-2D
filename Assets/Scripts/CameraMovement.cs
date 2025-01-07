@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public GameObject player;
     void Start()
     {
         
@@ -13,6 +15,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     transform.position = player.transform.position + new Vector3(0,0,-10);   
     }
 }
