@@ -8,16 +8,21 @@ public class PlayerMovement : MonoBehaviour
 
     Animator anim;
     public PlayerSprite playerSprite;
+
+    private PlayerStats playerStats;
     void Start()
     {
        Transform unitRootTransform = transform.Find("UnitRoot");
         playerSprite = unitRootTransform.GetComponent<PlayerSprite>();
+        playerStats = unitRootTransform.GetComponent<PlayerStats>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-           // Get input for horizontal and vertical movement
+            if(playerStats.playerIsDead == false){
+                 // Get input for horizontal and vertical movement
             float moveX = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right keys
             float moveY = Input.GetAxisRaw("Vertical");   // W/S or Up/Down keys
 
@@ -44,5 +49,7 @@ public class PlayerMovement : MonoBehaviour
                  playerSprite.IsMoving(false);
    
             }
+            }
+          
     }
 }
