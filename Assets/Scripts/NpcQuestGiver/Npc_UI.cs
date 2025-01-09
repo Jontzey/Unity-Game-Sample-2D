@@ -11,16 +11,21 @@ public class Npc_UI : MonoBehaviour
     [SerializeField] public TextMeshProUGUI Npc_Ui_text;
     [SerializeField] public TextMeshProUGUI Npc_isQuestAvailable;
 
-    public QuestManager questManager;
     private bool InNpcRange = false;
+
+    public QuestUI_Manager QuestUI_Manager;
+    private GameObject WorldCanvas;
     void Awake(){
        Npc_Ui_text = transform.Find("NpcCanvas/NpcName").GetComponent<TextMeshProUGUI>();
        Npc_isQuestAvailable = transform.Find("NpcCanvas/NpcQuestAvailable").GetComponent<TextMeshProUGUI>();
 
+        WorldCanvas = GameObject.Find("WorldCanvas");
+        GameObject questMenu = WorldCanvas.transform.Find("QuestMenu").gameObject;
+        QuestUI_Manager = questMenu.GetComponent<QuestUI_Manager>();
 
-       GameObject WorldCanvas = GameObject.Find("WorldCanvas");
+    //    GameObject WorldCanvas = GameObject.Find("WorldCanvas");
 
-       questManager = WorldCanvas.GetComponent<QuestManager>();
+    //    questManager = WorldCanvas.GetComponent<QuestManager>();
     }
     void Start()
     {
@@ -34,7 +39,7 @@ public class Npc_UI : MonoBehaviour
     {
        if(Input.GetKeyUp(KeyCode.E)){
             if(npc_Information.isQuestAvailable == true && InNpcRange == true){
-                    questManager.OpenQuestMenu();
+                    QuestUI_Manager.OpenQuestMenu();
                     //  npc_Information.UpdateQuestAvailability();
                     //  QuestAccepted();
             }

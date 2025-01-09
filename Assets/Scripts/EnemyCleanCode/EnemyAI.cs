@@ -29,13 +29,15 @@ public class EnemyAI : MonoBehaviour
 
     EnemyFovScript enemyFovScript;
     EnemyPatrol enemyPatrol;
-
+    [SerializeField] private Collider2D attackCollider;
     Animator anim;
+    PlayerStats playerStats;
     private void Start()
     {
         enemyFovScript = GetComponent<EnemyFovScript>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         playerRef = GameObject.FindGameObjectWithTag("Player");
+        playerStats = playerRef.GetComponent<PlayerStats>();
         anim = GetComponent<Animator>();
 
         
@@ -93,9 +95,11 @@ IEnumerator AttackPlayer()
 {
     isAttacking = true; // Set the flag to prevent re-entry
     anim.SetBool("2_Attack", true);
-
     yield return new WaitForSeconds(attackDelay);
-
+     attackCollider.enabled = true;
+     playerStats.TakeDamage(10);
+     yield return new WaitForSeconds(1);
+     attackCollider.enabled = false;
     anim.SetBool("2_Attack", false); // Reset animation state if needed
     isAttacking = false; // Allow attacking again
 }

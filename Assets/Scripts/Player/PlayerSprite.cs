@@ -5,16 +5,20 @@ using UnityEngine;
 public class PlayerSprite : MonoBehaviour
 {
     Animator anim;
+    PlayerStats playerStats;
     void Start()
     {
          anim = GetComponent<Animator>();
+         playerStats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Mouse0)){
-            anim.SetBool("2_Attack", true);
+        if(playerStats.playerIsDead == false){
+            if(Input.GetKeyUp(KeyCode.Mouse0)){
+                anim.SetBool("2_Attack", true);
+            }
         }
     }
 
