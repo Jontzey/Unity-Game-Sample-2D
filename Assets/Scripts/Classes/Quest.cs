@@ -24,15 +24,15 @@ public class Quest
         }
     }
 
-    // public void GiveReward()
-    // {
-    //     if (ItemReward != null)
-    //     {
-    //         // Code to add item to inventory
-    //         Debug.Log($"Player received item: {ItemReward.name}");
-    //     }
+    public void GiveReward()
+    {
+        // if (ItemReward != null)
+        // {
+        // //     Code to add item to inventory
+        //     Debug.Log($"Player received item: {ItemReward.name}");
+        // }
 
-    //     // Add experience to player
-    //     Debug.Log($"Player gained {ExperienceReward} experience.");
-    // }
+        // Add experience to player
+        Debug.Log($"Player gained {ExperienceReward} experience.");
+    }
 }

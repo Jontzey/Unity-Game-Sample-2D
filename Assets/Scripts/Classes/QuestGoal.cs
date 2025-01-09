@@ -14,6 +14,9 @@ public class QuestGoal : MonoBehaviour
     public int CurrentAmount;
     public int RequiredAmount;
 
+    // private void Update() {
+    //     Debug.Log(CurrentAmount);
+    // }
     public void Evaluate()
     {
         if (CurrentAmount >= RequiredAmount)

@@ -18,22 +18,26 @@ public class QuestUI_Manager : MonoBehaviour
 
 
 
-    private GameObject npcQuestGiver;
-    private Npc_Information Npc_Information;
-    private Quest quest;
-
+    [SerializeField] private GameObject npcQuestGiver;
+    [SerializeField] private Npc_Information Npc_Information;
+   [SerializeField]  private Quest quest;
+    [SerializeField] Transform questNameTransform;
+   [SerializeField]  Transform questDescriptionTransform;
+    [SerializeField] Transform questGoalTransform;
+    [SerializeField]  TextMeshProUGUI questNameText;
+      [SerializeField]   TextMeshProUGUI quesDescriptionText;
+      [SerializeField]   TextMeshProUGUI questGoalText;
     private void Awake() {
         // hitta objektet i child från parent
-        Transform questNameTransform = transform.Find("QuestName");
-        Transform questDescriptionTransform = transform.Find("QuestDescription");
-        Transform questGoalTransform = transform.Find("QuestGoal");
+        questNameTransform = transform.Find("QuestName");
+        questDescriptionTransform = transform.Find("QuestDescription");
+        questGoalTransform = transform.Find("QuestGoal");
         // hämta komponent
-        TextMeshProUGUI questNameText = questNameTransform.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI quesDescriptionText = questNameTransform.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI questGoalText = questNameTransform.GetComponent<TextMeshProUGUI>();
+        questNameText = questNameTransform.GetComponent<TextMeshProUGUI>();
+        quesDescriptionText = questNameTransform.GetComponent<TextMeshProUGUI>();
+        questGoalText = questNameTransform.GetComponent<TextMeshProUGUI>();
 
-        questNameText.text = quest.QuestName;
-        quesDescriptionText.text = quest.Description;
+        
 
         npcQuestGiver = GameObject.Find("NpcQuestGiver");
         Npc_Information = npcQuestGiver.transform.Find("UnitRoot").GetComponent<Npc_Information>();
@@ -41,7 +45,7 @@ public class QuestUI_Manager : MonoBehaviour
     }
     private void Start()
     {
-        // questMenu = transform.Find("QuestMenu").GetComponent<GameObject>();
+      
 
        
         isQuestMenuOpen = false;
@@ -57,7 +61,10 @@ public class QuestUI_Manager : MonoBehaviour
         if(isQuestMenuOpen){
             transform.gameObject.SetActive(false);
             isQuestMenuOpen = false;
+            
         }else{
+            // questNameText.text = quest.QuestName;
+            // quesDescriptionText.text = quest.Description;
             transform.gameObject.SetActive(true);
             isQuestMenuOpen = true;
         }
@@ -69,7 +76,7 @@ public class QuestUI_Manager : MonoBehaviour
         transform.gameObject.SetActive(false);
         isQuestMenuOpen = false;
     }
-
+ 
     public void AcceptedQuest(){
         Debug.Log("Accepted Quest");
         transform.gameObject.SetActive(false);

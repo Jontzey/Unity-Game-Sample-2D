@@ -11,12 +11,13 @@ public class Npc_Information : MonoBehaviour
     [SerializeField] public bool isQuestAvailable;
     
     public Quest QuestToGive;
+     Npc_UI Npc_ui;   
     private void Awake() {
        
-        
     }
     void Start()
     {
+        Npc_ui = GetComponent<Npc_UI>();
         isQuestAvailable = true;
 
     }
@@ -43,7 +44,9 @@ public class Npc_Information : MonoBehaviour
             QuestManagerScript questManager = FindObjectOfType<QuestManagerScript>();
             if (questManager != null)
             {
+
                 questManager.AddQuest(QuestToGive);
+                Npc_ui.QuestAccepted();
                 Debug.Log($"Quest '{QuestToGive.QuestName}' har getts till spelaren!");
             }
             else

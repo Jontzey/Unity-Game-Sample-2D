@@ -44,7 +44,9 @@ public class Npc_UI : MonoBehaviour
                     //  QuestAccepted();
             }
        }
-        
+        if(npc_Information.QuestToGive.Completed){
+            UpdateUiCompleted();
+        }
     }
 
 
@@ -58,6 +60,14 @@ public class Npc_UI : MonoBehaviour
     }
 
     public void QuestAccepted(){
-             Npc_isQuestAvailable.gameObject.SetActive(false);
+            //  Npc_isQuestAvailable.gameObject.SetActive(false);
+            Npc_isQuestAvailable.text = "?";
+            Npc_isQuestAvailable.fontStyle = FontStyles.Bold;
+            Npc_isQuestAvailable.color = Color.grey;
+    }
+
+    public void UpdateUiCompleted(){
+        Npc_isQuestAvailable.color = Color.yellow;
+        
     }
 }
