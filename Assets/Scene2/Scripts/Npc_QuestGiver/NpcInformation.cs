@@ -15,8 +15,10 @@ public class NpcInformation : MonoBehaviour
 
 
     UserInterfaceManager userInterfaceManager;
+    NpcCanvasUI npcCanvasUI;
     private void Awake() {
         userInterfaceManager = FindAnyObjectByType<UserInterfaceManager>();
+        npcCanvasUI = GetComponent<NpcCanvasUI>();
     }
     void Start()
     {
@@ -39,6 +41,7 @@ public class NpcInformation : MonoBehaviour
         quest.IsQuestActive = true;
         QuestManager.instance.AddQuest(quest);
         userInterfaceManager.CloseQuestMenu();
+        UpdateCanvasUI();
     }
 
 
@@ -46,6 +49,15 @@ public class NpcInformation : MonoBehaviour
         Debug.Log("Player was rewarded with: "+ quest.ExperienceReward + " experience");
         IsNpcInteractable = false;
         userInterfaceManager.CloseQuestMenu();
+        userInterfaceManager.IsInteractAble(false,this);
+        quest.IsQuestActive = false;
+        UpdateCanvasUI();
+        userInterfaceManager.AddTextMessage($"Completed : {quest.QuestName.ToString()}");
         QuestManager.instance.RemoveQuest(quest);
+    }
+
+
+    public void UpdateCanvasUI(){
+        npcCanvasUI.UpdateQuestStatusUI();
     }
 }

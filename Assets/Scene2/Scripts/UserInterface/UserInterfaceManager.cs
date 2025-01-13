@@ -13,12 +13,15 @@ public class UserInterfaceManager : MonoBehaviour
 
   [SerializeField]  GameObject QuestMenu;
 
-  [SerializeField] NpcInformation npcInformation;
+  [SerializeField] public NpcInformation npcInformation;
+
+  [SerializeField] private AudioClip OpeningQuestAudio;
+  [SerializeField] private AudioSource audioSource;
     private void Awake() {
         WorldCanvas = GameObject.Find("WorldCanvas");
         QuestMenu = GameObject.Find("QuestMenu");
         npcInformation = FindAnyObjectByType<NpcInformation>();
-
+        audioSource = GetComponent<AudioSource>();
 
         UI_Interactable = GameObject.Find("WorldCanvas/Interactable");
     }
@@ -46,8 +49,10 @@ public class UserInterfaceManager : MonoBehaviour
     }
 
     public void OpenQuestMenu(Quest quest){
-         QuestMenu.SetActive(!QuestMenu.activeSelf);
-
+        QuestMenu.SetActive(!QuestMenu.activeSelf);
+        if(OpeningQuestAudio != null){
+            audioSource.PlayOneShot(OpeningQuestAudio);
+        }
         TextMeshProUGUI QuestName = GameObject.Find("QuestMenu/QuestName").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI QuestGoal= GameObject.Find("QuestMenu/QuestGoal").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI QuestDescription = GameObject.Find("QuestMenu/QuestDescription").GetComponent<TextMeshProUGUI>();
@@ -83,6 +88,7 @@ public class UserInterfaceManager : MonoBehaviour
 
 
     public void AddTextMessage(string ItemCollectedSentence){
+        npcInformation.UpdateCanvasUI();
         StartCoroutine(CreateTextMessage(ItemCollectedSentence));
     }
 
@@ -98,11 +104,11 @@ public class UserInterfaceManager : MonoBehaviour
 
         newText.text = ItemCollectedSentence.ToString();
 
-        // Ställ in TextMeshPro-inställningar
+
         newText.fontSize = 24;
         newText.color = Color.white;
 
-        // Sätt parenten till MsgGrid 
+       
         newMessageObject.transform.SetParent(MsgGrid.transform, false);
 
           // Fade-out effekt variabler

@@ -9,10 +9,13 @@ public class PlayerMovement : MonoBehaviour
     GameObject UnitRoot;
     Animator anim;
     [SerializeField] private float PlayerSpeed = 2.5f;
+
+    [SerializeField] private AudioSource walkingAudioSource;
     void Start()
     {
         UnitRoot = GameObject.Find("Player/UnitRoot");
         anim = UnitRoot.GetComponent<Animator>();
+        walkingAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,5 +50,19 @@ public class PlayerMovement : MonoBehaviour
         // Update animation
         bool isMoving = movement != Vector3.zero;
         anim.SetBool("1_Move", isMoving);
+        if (isMoving)
+    {
+        if (!walkingAudioSource.isPlaying)
+        {
+            walkingAudioSource.Play(); // Start playing the walking sound
+        }
+    }
+    else
+    {
+        if (walkingAudioSource.isPlaying)
+        {
+            walkingAudioSource.Stop(); // Stop the walking sound when the player stops moving
+        }
+    }
     }
 }
