@@ -64,5 +64,10 @@ public class PlayerMovement : MonoBehaviour
             walkingAudioSource.Stop(); // Stop the walking sound when the player stops moving
         }
     }
+    if (Input.GetKeyUp(KeyCode.Mouse0))
+    {
+        anim.SetBool("2_Attack",true);
     }
+    }
+    
 }
